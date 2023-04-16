@@ -1,6 +1,6 @@
 /*
-  Arbitrary Precision uLisp Extension - Version 1 - 11th April 2023
-  See http://forum.ulisp.com/t/a-ulisp-extension-for-arbitrary-precision-arithmetic/1183
+  Arbitrary Precision uLisp Extension - Version 2 - 16th April 2023
+  See http://www.ulispi.com/show?282B
 */
 
 #define MAX_VAL ((uint64_t)0xFFFFFFFF)
@@ -407,7 +407,7 @@ object *fn_Sdiv (object *args, object *env) {
   Divides two bignums and returns the remainder as a new bignum.
 */
 object *fn_Smod (object *args, object *env) {
-  return second(bignum_div(checkbignum(first(args)), checkbignum(second(args)), env));
+  return bignum_normalise(second(bignum_div(checkbignum(first(args)), checkbignum(second(args)), env)));
 }
 
 // Comparisons
@@ -486,8 +486,6 @@ const char stringSinteger[] PROGMEM = "$integer";
 const char stringSbignumstring[] PROGMEM = "$bignum-string";
 const char stringSstringbignum[] PROGMEM = "$string-bignum";
 const char stringSzerop[] PROGMEM = "$zerop";
-const char stringSdecf[] PROGMEM = "$decf";
-const char stringSincf[] PROGMEM = "$incf";
 const char stringSadd[] PROGMEM = "$+";
 const char stringSsub[] PROGMEM = "$-";
 const char stringSmul[] PROGMEM = "$*";
