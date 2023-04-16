@@ -1,6 +1,6 @@
 /*
   Arbitrary Precision uLisp Extension - Version 2 - 16th April 2023
-  See http://www.ulispi.com/show?282B
+  See http://www.ulisp.com/show?282B
 */
 
 #define MAX_VAL ((uint64_t)0xFFFFFFFF)

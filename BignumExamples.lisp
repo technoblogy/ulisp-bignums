@@ -1,5 +1,5 @@
 ; Examples for the uLisp bignums Extension
-; see http://forum.ulisp.com/t/a-ulisp-extension-for-arbitrary-precision-arithmetic/1183
+; see http://www.ulisp.com/show?282B
 
 
 ; Factorial
@@ -40,5 +40,28 @@
   (dolist (m '(2 3 5 7 13 17 19 31 61 89 107 127 521 607 1279 2203))
     (let (($p ($- ($expt 2 m) ($bignum 1))))
       (format t "~4a ~a~%" m ($bignum-string $p)))))
+
+; Pollard's Rho Algorithm for factorising large numbers
+
+(defun $gcd (a b)
+  (let (temp)
+    (loop
+     (when ($zerop b) (return a))
+     (setq temp b b ($mod a b) a temp))))
+
+(defun $pollard-rho (n)
+  (let* (($1 ($bignum 1))
+         (x ($bignum 2))
+         (y ($bignum 2))
+         (d ($bignum 1))
+         ($g (lambda (x) ($mod ($+ ($* x x) $1) n))))
+    (loop
+     (unless ($= d $1) (return))
+     (setq x ($g x))
+     (setq y ($g ($g y)))
+     (setq d ($gcd (if ($> x y) ($- x y) ($- y x)) n)))
+    (if ($= d n) nil d)))
+
+(defun $fermat (n) ($+ ($expt 2 (expt 2 n)) ($bignum 1)))
 
 
